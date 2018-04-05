@@ -1,7 +1,7 @@
 vcl 4.0;
 
 backend default {
-    .host = "portal.convenios.gov.br";
+    .host = "haproxy";
     .port = "80";
 }
 
@@ -14,7 +14,7 @@ sub vcl_recv {
 
 sub vcl_backend_response {
 
-         #unset beresp.http.Expires;  
+         ##unset beresp.http.Expires;  
          #unset beresp.http.Cache-Control;  
          #unset beresp.http.Pragma;  
 
@@ -22,10 +22,10 @@ sub vcl_backend_response {
          #set beresp.http.magicmarker = "1";  
 
          # Leveraging browser, cache set the clients TTL on this object /  
-         ##set beresp.http.Cache-Control = "public, max-age=60";  
+         set beresp.http.Cache-Control = "public, max-age=60";  
 
          # cache set the clients TTL on this object /  
-         #set beresp.ttl = 1m;  
+         set beresp.ttl = 1m;  
 
          # Allow stale content, in case the backend goes down.  
          # make Varnish keep all objects for 6 hours beyond their TTL  

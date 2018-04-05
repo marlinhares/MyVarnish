@@ -1,0 +1,12 @@
+version: '3'
+services:
+    varnish:
+        image: "linhares/varnish:0.1"
+        volumes:
+            - ../varnish.vcl:/etc/varnish/default.vcl
+        ports:
+            - "80:80"
+    haproxy:
+        image: "haproxy:1.7"
+        volumes:
+            - ../haproxy/:/usr/local/etc/haproxy:ro
