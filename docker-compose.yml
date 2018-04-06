@@ -2,10 +2,10 @@ version: '3'
 services:
     varnish:
         build: .
-        volumes:
-            - ./varnish.vcl:/etc/varnish/default.vcl
         ports:
             - "80:80"
+        environment:
+            - REQ_HOST=www.planejamento.gov.br
     haproxy:
         image: "haproxy:1.7"
         volumes:

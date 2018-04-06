@@ -15,10 +15,9 @@ backend default {
 }
 
 sub vcl_recv {
-    set req.http.host = "portal.convenios.gov.br";
+    set req.http.host = "${REQ_HOST}";
 
-    unset req.http.Cookie;    
-
+    unset req.http.Cookie;
 }
 
 sub vcl_hit {
