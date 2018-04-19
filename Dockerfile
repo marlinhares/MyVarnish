@@ -1,9 +1,10 @@
 FROM debian
 
 RUN apt-get -y update
-RUN apt-get -y install varnish
+RUN apt-get -y install varnish curl
 
 COPY varnish.vcl /etc/varnish/default.vcl
+COPY be_template /be_template
 
 COPY entrypoint.sh /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]
