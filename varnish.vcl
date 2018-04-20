@@ -1,11 +1,12 @@
+vcl 4.0;
 #
 # Fabio Nitto
 #
 # Este e um template para o VCL padrao do container.
 #
 # Ele possui as seguintes diretivas:
-# %CREATE_BE%
-# %ADD_BE
+# CREATE_BE
+# ADD_BE
 #
 # e utiliza o arquivo padrao be_template, copiado no container.
 #
@@ -14,13 +15,11 @@
 # Ao ser executado o entrypoint do container verifica se está rodando em um rancher, caso positivo, 
 # ele busca nos metadados do Rancher quais os links(backends) o varnish possui.
 # Para cada Backend(Link) é consultado o ip de cada conteiner participante do serviço, e para cada um
-# é criado um backend na diretiva %CREATE_BE%, e adicionado ao Director padrão bar, em %ADD_BE%.
+# é criado um backend na diretiva CREATE_BE, e adicionado ao Director padrão bar, em ADD_BE.
 #
 # Caso deseja inutilizar esse template, basta montar o container no Rancher montando um volume com o VCL
 # desejado. O container funcionará com qualquer VCL padrão do varnish.
 
-
-vcl 4.0;
 import directors;
 import std;
 
