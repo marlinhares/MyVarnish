@@ -1,6 +1,12 @@
 #!/bin/sh
 set -e
 
+BE_TEMPLATE=/etc/varnish/be_template.vcl
+
+# Copia o template para o arquivo VCL padrao que o Varnish irá utilizar.
+# Isso permite que os backends sejam atualizados toda vez que o varnish restarta;
+cp /etc/varnish/template.vcl /etc/varnish/default.vcl
+
 #If curl and Rancher
 if hash curl 2>/dev/null && curl rancher-metadata 2>/dev/null >/dev/null; then
   services=$(curl http://rancher-metadata/latest/self/service/links)
@@ -20,7 +26,7 @@ if hash curl 2>/dev/null && curl rancher-metadata 2>/dev/null >/dev/null; then
             ip=$(curl http://rancher-metadata/latest/containers/$be/ips/0)
 
             #Include backend template
-            sed -i -e "/%CREATE_BE%/r /be_template" /etc/varnish/default.vcl
+            sed -i -e "/%CREATE_BE%/r $BE_TEMPLATE" /etc/varnish/default.vcl
             #Add backend to director
             sed -i -e "s/\%ADD_BE\%/bar.add_backend($be_san);\n    \%ADD_BE\%/g" /etc/varnish/default.vcl 
 
@@ -39,7 +45,7 @@ if hash curl 2>/dev/null && curl rancher-metadata 2>/dev/null >/dev/null; then
             ip=$(curl http://rancher-metadata/latest/services/$s/external_ips/$be)
 
             #Include backend template
-            sed -i -e "/%CREATE_BE%/r /be_template" /etc/varnish/default.vcl
+            sed -i -e "/%CREATE_BE%/r $BE_TEMPLATE" /etc/varnish/default.vcl
             #Add backend to director
             sed -i -e "s/\%ADD_BE\%/bar.add_backend($s_san\_$be);\n    \%ADD_BE\%/g" /etc/varnish/default.vcl
  
