@@ -66,6 +66,9 @@ fi
 sed -i -e "s/\%CREATE_BE\%//g" /etc/varnish/default.vcl
 sed -i -e "s/\%ADD_BE\%//g" /etc/varnish/default.vcl
 
+#Temporary port mapping to backend
+sed -i -e "s/\%BE_PORT\%/${BE_PORT}/g" /etc/varnish/default.vcl
+
 
 #sed -i -e "s/\${REQ_HOST}/$REQ_HOST/g" /etc/varnish/default.vcl
 

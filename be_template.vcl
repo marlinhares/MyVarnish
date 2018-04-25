@@ -1,9 +1,9 @@
 
 backend %BE_NAME% {
     .host = "%BE_IP%";
-    .port = "80";
+    .port = "%BE_PORT%";
     .probe = {
-        .url = "/";
+        .url = "%BE_PATH%";
         .timeout = 1s;
         .interval = 5s;
         .window = 5;
