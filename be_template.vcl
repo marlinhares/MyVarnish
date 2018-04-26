@@ -4,9 +4,9 @@ backend %BE_NAME% {
     .port = "%BE_PORT%";
     .probe = {
         .url = "%BE_PATH%";
-        .timeout = 1s;
-        .interval = 5s;
-        .window = 5;
-        .threshold = 3;
+        .timeout = %PROBE_TIMEOUT%;
+        .interval = %PROBE_INTERVAL%;
+        .window = %PROBE_WINDOW%;
+        .threshold = %PROBE_THRESHOLD%;
     }
 }
